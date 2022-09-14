@@ -23,7 +23,7 @@ default to the query string parameter 'msg' value. Try
 https://returnti.me?msg=Will%20Return%20Soon for a more generic
 message.
 
-## The CLock
+## The Clock
 The large LED-style clock supports 12- and 24-hour time, with
 English am/pm indicators as needed. The seven-segment LED figures
 support a 'ghost voltage' state, showing just a small amount of
