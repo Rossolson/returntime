@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+<!--
+
+	ReturnTime - https://returnti.me
+	Source code: https://github.com/Rossolson/returntime
+	Ross Olson (ross@rossolson.com)
+
+		ReturnTime displays a web page to be shown on video conferencing
+	screens during rest breaks and other interruptions.
+
+	Example URLs:
+	
+	https://returnti.me?msg=Will%20start%20again%20at%201pm
+	https://returnti.me?msg=Meal%20break%20until%2019:30&hours=24
+	https://returnti.me?msg=Party%20at%20Noon!&clockcolor=yellow
+	https://returnti.me?msg=Break%20until%20top%20of%20hour&clockcolor=%23ff35ee&hours=24
+	
+	-Ross
+
+	Changelog:
+
+	2022-09-08 - Added support for clockcolor to SVG, and page passthru.
+	2022-08-29 - First version
+	
+-->
+	<title>ReturnTi.me</title>
+	<meta name="apple-mobile-web-app-capable" content="yes">
+	<style>
+		body {
+			background-color: black;
+			color: white;
+		}
+		div.parent {
+			display: flex;
+			flex-direction: column;
+			align-items: center;
+			height: 100vh;
+			max-width: 100%;
+		}
+		.child {
+			text-align: center;
+			vertical-align: middle;
+			min-width: 80%;
+			max-width: 90%;
+		}
+		.child img, .child object {
+			width: 100%;
+			max-width: 600px;
+			height: auto;
+		}
+		.child:nth-last-child(1) {
+			margin-top: auto;
+			padding-bottom: 1em;
+		}
+		p {
+			font: 30px sans-serif;
+			color: white;
+		}
+		p.outro {
+			font: 14px ui-monospace, monospace;
+			color: red;
+		}
+		p.editable {
+			cursor: text;
+		}
+	</style>
+</head>
+<body>
+	<div class="parent">
+		<div class="child">
+			<p class="intro editable" contenteditable="true"><i>Paused until the top of the hour</i></p>
+		</div>
+		<div class="child">
+			<object id="svgClock" data="digital-clock-ampm-min.svg" type="image/svg+xml">
+				<img src="digital-clock-ampm-min.svg">
+			</object>
+		</div>
+		<div class="child">
+			<p class="outro editable" contenteditable="true" id="timezone">My local timezone</p>
+		</div>
+		<div class="child">
+			<p class="outro editable" contenteditable="true">returnti.me <br /> for details, view page source</p>
+		</div>
+	</div>
+
+<script>
+<!--
+const urlParams = new URLSearchParams(window.location.search);
+const svgClockPath = "digital-clock-ampm-min.svg?" + urlParams
+document.getElementById("svgClock").setAttribute('data', svgClockPath);
+const msgPayload = urlParams.get('msg');
+if (msgPayload) {
+	const messageContainer = document.querySelector('.intro');
+	messageContainer.innerHTML = msgPayload;
+}
+const msgOutro = Intl.DateTimeFormat().resolvedOptions().timeZone;
+if (msgOutro) {
+	const outroContainer = document.querySelector('#timezone');
+	outroContainer.innerHTML = "Timezone: " + msgOutro;
+}
+// -->
+</script>
+</body>
+</html>
