@@ -1,0 +1,180 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<!--
+	- 24- or 12-hour Digital Clock in an SVG with embedded JavaScript
+	- by Ross Olson
+	- Used by https://returnti.me
+	-
+	- Based on work from the following projects:
+	-
+	- Full screen clock (analog with seconds)
+	- Copyright (c) 2019 Project Nayuki
+	- https://www.nayuki.io/page/full-screen-clock-javascript
+	-
+	- SVG Digital Clock Display
+	- by Dustin Dowell
+	- https://codepen.io/dustindowell/pen/rxjxVp
+	
+	HOW TO USE:
+	
+	Embed in a web page using the <object> tag so that the JavaScript is activated. The
+	query string parameters are:
+
+	hours - if set to '12' or missing, the clock will display 12 hours, with an
+			am/pm marker. Any other value will trigger the 24-hour display with 
+			midnight of 00:00.
+
+	clockcolor - sets the primary color of the LED segments. All live changes are
+			made through opacity.
+
+	-->
+<svg xmlns="http://www.w3.org/2000/svg" version="1.1" viewBox="0 0 85 45" id="clock">
+
+	<g id="rect">
+		<rect x="0" y="0" width="85" height="45" />
+	</g>
+
+	<defs>
+		<polygon id='segment-horz' points='3,0 9,0 11,2 9,4 3,4 1,2'/>
+		<polygon id='segment-vert' points='0,3 0,9 2,11 4,9 4,3 2,1'/>
+		<path id="ampm-a" d="M785.6,253.4c-15.9-52.9-41.8-98.5-76.8-135.6c-68.5-72.6-170.9-111-296.1-111c0,0,0,0,0,0c-98.8,0-182,18.6-247.1,55.4c-67.1,37.8-114,94.8-135.7,164.7l143.3,44.4c10.4-33.6,32-59.3,66.1-78.5c41.8-23.6,101.7-36,173.4-36c41.9,0,79.3,5.6,111.1,16.6 c30.8,10.7,56.4,26.6,75.9,47.3c38,40.3,56.5,101.7,55.1,182.6c-70.5-47.7-159.4-73.7-252.8-73.7c-101.1,0-197,30.5-269.9,86 c-37.5,28.5-67.1,62.1-88.2,100c-22.8,41-34.4,84.9-34.4,130.4s11.6,89.4,34.4,130.4c21.1,37.9,50.7,71.5,88.2,100 c73,55.5,168.8,86,269.9,86c91.5,0,178.7-25,248.5-70.8c1.2,24.9,2.5,44.1,3.9,55.8l148.9-17.8c-5.7-47.3-11.5-290.1,0.4-496.2 C807.5,366.6,801.4,306,785.6,253.4z M581.1,756.9c-22.4,17-48.8,30.5-78.5,40c-31.7,10.2-65.6,15.4-100.6,15.4 S333,807.2,301.3,797c-29.7-9.6-56.1-23-78.5-40c-40.9-31.1-63.4-70.5-63.4-111s22.5-79.9,63.4-111c22.4-17,48.8-30.5,78.5-40 c31.7-10.2,65.6-15.4,100.6-15.4s68.9,5.2,100.6,15.4c29.7,9.6,56.1,23,78.5,40c40.9,31.1,63.4,70.5,63.4,111 S621.9,725.8,581.1,756.9z"/>
+		<path id="ampm-m" d="M1223.5,285.8c-0.6-7.5-1.3-15.3-2-23.9c-3.1-38.2-17-74.3-41.4-107.4c-21.2-28.7-49.6-54-84.4-75.1 c-65.3-39.6-148.7-61.4-234.9-61.4c-115.3,0-192.7,43.6-240.6,85.8c-8.5-7.7-17.6-14.9-27.3-21.7c-59.8-41.9-137.6-64.1-225-64.1 c-76.1,0-147.6,19.4-210,56.5V33.4H8v885h150V273.3c8.7-11.9,23.6-30,45.1-47.6c46.5-38.2,102-57.6,164.9-57.6 c55.6,0,104.9,13.1,138.8,36.9c18.6,13.1,41.4,35.6,44,68.8c6.1,76.4,7.9,447.9,7.9,633.7l150-0.1c0-22.2-0.3-544.2-8.4-645.6 c-0.6-7.5-1.6-15-2.9-22.3c4.8-6,10.5-12.4,17.1-18.6c36.9-35,86.1-52.8,146.3-52.8c58.3,0,115.6,14.4,157.2,39.6 c32.5,19.7,52.2,43.8,54,66.1c0.7,8.8,1.4,16.8,2,24.4c6.8,82,10,119.4,10.2,609.2l150-0.1C1234,411.3,1230.7,372,1223.5,285.8z"/>
+		<path id="ampm-p" d="M774,223.1c-20.3-43.1-49.1-81.6-85.8-114.5C614.5,42.4,516.9,5.9,413.6,5.9c-94.3,0-183.7,30.4-254.6,85.9 c-0.3-15.6-0.6-31.5-1-47.8L8,47.1c16.2,795.5,15.3,831.7,2.8,875.5l144.3,41c10.6-37.3,14.9-64.1,15-181c0-34.8-0.3-78.5-1-134.5 c69.2,50.7,154.6,78.2,244.4,78.2c103.4,0,200.9-36.5,274.7-102.7c36.6-32.9,65.5-71.4,85.8-114.5c21.3-45.2,32.1-93.3,32.1-143 S795.3,268.3,774,223.1z M413.6,576.2c-133.7,0-242.6-94.3-242.6-210.2s108.8-210.2,242.6-210.2s242.6,94.3,242.6,210.2 S547.3,576.2,413.6,576.2z"/>
+	</defs>
+
+	<g id='digital'>
+		<g id='numerals'>
+			<svg x="2" y="0">
+				<use id="a1" href="#segment-horz" x="02" y="08" />
+				<use id="a2" href="#segment-vert" x="00" y="10" />
+				<use id="a3" href="#segment-vert" x="12" y="10" />
+				<use id="a4" href="#segment-horz" x="02" y="20" />
+				<use id="a5" href="#segment-vert" x="00" y="22" />
+				<use id="a6" href="#segment-vert" x="12" y="22" />
+				<use id="a7" href="#segment-horz" x="02" y="32" />
+			</svg>
+			<svg x="20" y="0">
+				<use id="b1" href="#segment-horz" x="02" y="08" />
+				<use id="b2" href="#segment-vert" x="00" y="10" />
+				<use id="b3" href="#segment-vert" x="12" y="10" />
+				<use id="b4" href="#segment-horz" x="02" y="20" />
+				<use id="b5" href="#segment-vert" x="00" y="22" />
+				<use id="b6" href="#segment-vert" x="12" y="22" />
+				<use id="b7" href="#segment-horz" x="02" y="32" />
+			</svg>
+			<svg x="44" y="0">
+				<use id="c1" href="#segment-horz" x="02" y="08" />
+				<use id="c2" href="#segment-vert" x="00" y="10" />
+				<use id="c3" href="#segment-vert" x="12" y="10" />
+				<use id="c4" href="#segment-horz" x="02" y="20" />
+				<use id="c5" href="#segment-vert" x="00" y="22" />
+				<use id="c6" href="#segment-vert" x="12" y="22" />
+				<use id="c7" href="#segment-horz" x="02" y="32" />
+			</svg>
+			<svg x="62" y="0">
+				<use id="d1" href="#segment-horz" x="02" y="08" />
+				<use id="d2" href="#segment-vert" x="00" y="10" />
+				<use id="d3" href="#segment-vert" x="12" y="10" />
+				<use id="d4" href="#segment-horz" x="02" y="20" />
+				<use id="d5" href="#segment-vert" x="00" y="22" />
+				<use id="d6" href="#segment-vert" x="12" y="22" />
+				<use id="d7" href="#segment-horz" x="02" y="32" />
+			</svg>
+		</g>
+		<g id='dots'>
+			<circle cx='40' cy='16' r='2'/>
+			<circle cx='40' cy='28' r='2'/>
+		</g>
+		<g id='ampm'>
+			<svg x="80" y="07">
+				<polygon id='ampm-a' points='0,3.8 0,4.3 3,4.3 3,3.8'/>
+				<svg id="am" x="0" y="1.5" width="1" height="1" viewBox="0 0 850 850" style="overflow: visible;">
+					<use id="ampm-am-a" href="#ampm-a" x="0" y="0" />
+					<use id="ampm-am-m" href="#ampm-m" x="1000" y="0" />
+				</svg>
+				<svg id="pm" x="0" y="5.5" width="1" height="1" viewBox="0 0 850 850" style="overflow: visible;">
+					<use id="ampm-pm-p" href="#ampm-p" x="0" y="0" />
+					<use id="ampm-pm-m" href="#ampm-m" x="1000" y="0" />
+				</svg>
+			</svg>
+		</g>
+	</g>
+
+	<script type="application/javascript">
+	// <![CDATA[
+	"use strict";
+
+	const segmentMap = [
+		[1, 1, 1, 0, 1, 1, 1], // 0
+		[0, 0, 1, 0, 0, 1, 0], // 1
+		[1, 0, 1, 1, 1, 0, 1], // 2
+		[1, 0, 1, 1, 0, 1, 1], // 3
+		[0, 1, 1, 1, 0, 1, 0], // 4
+		[1, 1, 0, 1, 0, 1, 1], // 5
+		[1, 1, 0, 1, 1, 1, 1], // 6
+		[1, 0, 1, 0, 0, 1, 0], // 7
+		[1, 1, 1, 1, 1, 1, 1], // 8
+		[1, 1, 1, 1, 0, 1, 1]  // 9
+	]
+
+	function updateClock(clockHours, thisInstant) {
+
+		const doc = document;
+		const dateStamp = thisInstant || new Date();
+		const baseOpacity = 0.1;
+
+		const displayAmPmFormat = useAmPmFormat(clockHours); // (parseInt(clockHours, 10) == 12);
+
+		const minutes = dateStamp.getMinutes();
+		const hours24 = dateStamp.getHours(); // Value will always be 0 to 23, 0-based
+		const hours12 = (hours24 % 12) || 12; // Value will always be 1 to 12, and the || makes it 1-based.
+		const hours = displayAmPmFormat ? hours12 : hours24;
+		
+		for ( let i = 1; i <= 7; i++ ) {
+			// Update display on a per-segment basis, to match our data structure.
+			doc.getElementById("a" + i).style.opacity = baseOpacity + segmentMap[Math.floor(hours / 10)][i - 1]; // 0, 1 or 2
+			doc.getElementById("b" + i).style.opacity = baseOpacity + segmentMap[hours % 10][i - 1];
+			doc.getElementById("c" + i).style.opacity = baseOpacity + segmentMap[Math.floor(minutes / 10)][i - 1];
+			doc.getElementById("d" + i).style.opacity = baseOpacity + segmentMap[minutes % 10][i - 1];
+
+			// When the 10's digit is unused, display a little bit more for visual balance.
+			if ( hours < 10 ) {
+				doc.getElementById("a" + i).style.opacity = baseOpacity + 0.1;
+			}
+		}
+
+		doc.getElementById("dots").style.opacity = baseOpacity + 0.3 + dateStamp.getSeconds() % 2; // Opacity of .4 or 1(.4)
+
+		doc.getElementById("ampm").style.opacity = 0; // Do not use baseOpacity here. Hide this entirely.
+		if (displayAmPmFormat) {
+			// 12.1 offset of hour means SIGN function will be a 1 or -1 on AM and PM. Cheeky.
+			doc.getElementById("ampm").style.opacity = 1;
+			doc.getElementById("am").style.opacity = 1.5 + Math.sign(hours24 - 12.1) * -1;
+			doc.getElementById("pm").style.opacity = 1.5 + Math.sign(hours24 - 12.1)
+		}
+
+	}
+
+	function useAmPmFormat(hourValue) {
+		return (hourValue == 12);
+	}
+
+	function setOpacity(domNode) {
+		let returnValue = {};
+		if (domNode) {
+			returnValue = domNode;
+		}
+		return returnValue;
+	}
+
+	const urlParams = new URLSearchParams(window.location.search);
+	const clockHours = urlParams.get('hours') || 12;
+	const clockColor = urlParams.get('clockcolor') || "red";
+	document.getElementById("digital").setAttribute("fill", clockColor);
+
+	let intervalId;
+	intervalId = setInterval(() => this.updateClock(clockHours, new Date()), 400);
+
+	// ]]>
+	</script>
+</svg>
