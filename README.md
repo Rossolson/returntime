@@ -41,9 +41,14 @@ names as well as standard web color settings like "%23ff35ee".
 *	https://returnti.me?msg=Meal%20break%20until%2019:30&hours=24
 *	https://returnti.me?msg=Party%20at%20Noon!&clockcolor=yellow
 *	https://returnti.me?msg=Break%20until%20top%20of%20hour&clockcolor=%23ff35ee&hours=24
+
+A backup copy of the site is available at:
+
+*	https://rossolson.github.io/returntime/?msg=Via%20GitHub😄  ⬅︎ includes an emoji!
 	
 ## Changelog
 
+	2022-09-20 - Now with backup hosting at GitHub page.
 	2022-09-08 - Added support for clockcolor to SVG, and page passthru.
 	2022-08-29 - First version
 	
